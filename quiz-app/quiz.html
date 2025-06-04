@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Quiz</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="timer" id="timer">01:00:00</div>
+  <h2 id="quiz-title"></h2>
+
+  <div class="question-box">
+    <div id="question-text"></div>
+    <div id="options"></div>
+    <button onclick="prevQ()">Previous</button>
+    <button onclick="nextQ()">Next</button>
+  </div>
+
+  <div class="side-nav" id="nav-grid"></div>
+  <button onclick="submitQuiz()">Submit</button>
+
+  <script src="quiz.js"></script>
+</body>
+</html>
