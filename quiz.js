@@ -7,6 +7,7 @@ async function startQuiz() {
   quizData = await res.json();
   answers = Array(quizData.questions.length).fill(null);
   document.getElementById("quiz-title").innerText = quizData.title;
+  // Use the corrected key "duration_minutes"
   startTimer(quizData.duration_minutes * 60);
   renderQuestion();
   renderNavGrid();
@@ -14,12 +15,16 @@ async function startQuiz() {
 
 function renderQuestion() {
   const q = quizData.questions[current];
-  document.getElementById("question-text").innerText = `${current + 1}. ${q.question}`;
+  // Display a full question with a "Question:" prefix for clarity
+  document.getElementById("question-text").innerText = `Question ${current + 1}: ${q.question}`;
+  // Wrap each option in a div for vertical stacking
   const options = q.options.map((opt, i) => `
-    <label>
-      <input type="radio" name="option" ${answers[current] === i ? 'checked' : ''} onclick="selectAnswer(${i})">
-      ${opt}
-    </label>
+    <div>
+      <label>
+        <input type="radio" name="option" ${answers[current] === i ? 'checked' : ''} onclick="selectAnswer(${i})">
+        ${opt}
+      </label>
+    </div>
   `).join('');
   document.getElementById("options").innerHTML = options;
   updateNavStatus();
@@ -86,15 +91,17 @@ function submitQuiz() {
   };
 
   quizData.questions.forEach((q, i) => {
+    // Use bracket notation to support the key "correct_index" as fixed in quiz1.json
+    const correctIndex = q.correct_index;
     if (answers[i] === null) {
       result.unanswered++;
-      result.details.push({ id: i + 1, selected: null, correct: q.correct_index });
-    } else if (answers[i] === q.correct_index) {
+      result.details.push({ id: i + 1, selected: null, correct: correctIndex });
+    } else if (answers[i] === correctIndex) {
       result.correct++;
-      result.details.push({ id: i + 1, selected: answers[i], correct: q.correct_index });
+      result.details.push({ id: i + 1, selected: answers[i], correct: correctIndex });
     } else {
       result.incorrect++;
-      result.details.push({ id: i + 1, selected: answers[i], correct: q.correct_index });
+      result.details.push({ id: i + 1, selected: answers[i], correct: correctIndex });
     }
   });
 
