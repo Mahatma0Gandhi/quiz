@@ -16,7 +16,7 @@ function renderDetails() {
     const div = document.createElement("div");
     div.className = "result-box";
     div.innerHTML = `
-      <strong>Q${d.id}:</strong> You chose ${d.selected !== null ? d.selected + 1 : 'None'}, Correct is ${d.correct + 1}
+      <strong>Q${d.id}:</strong> You chose ${d.selected !== null ? d.selected + 1 : 'None'}, Correct is ${d.correct !== null ? d.correct + 1 : 'N/A'}
     `;
     container.appendChild(div);
   });
